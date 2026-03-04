@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Registration System</title>
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    background:#f4f6f9;
+    margin:0;
+    padding:0;
+}
+
+.header{
+    background:#2f4f8f;
+    color:white;
+    text-align:center;
+    padding:30px;
+    border-radius:0 0 10px 10px;
+}
+
+.container{
+    display:flex;
+    justify-content:center;
+    gap:40px;
+    margin:40px;
+}
+
+.card{
+    background:white;
+    padding:25px;
+    width:400px;
+    border-radius:10px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.1);
+}
+
+h2{
+    color:#2f4f8f;
+}
+
+input, select{
+    width:100%;
+    padding:10px;
+    margin:8px 0 15px 0;
+    border:1px solid #ccc;
+    border-radius:5px;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:6px;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.primary{
+    background:#2f4f8f;
+}
+
+.danger{
+    background:#e53935;
+}
+
+.success{
+    background:#4caf50;
+}
+
+.table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:15px;
+}
+
+.table th{
+    background:#2f4f8f;
+    color:white;
+    padding:10px;
+}
+
+.table td{
+    padding:8px;
+    border-bottom:1px solid #ddd;
+    text-align:center;
+}
+
+.footer{
+    text-align:center;
+    margin:30px;
+    color:#666;
+    font-size:14px;
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+    <h1>Student Registration System</h1>
+    <p>HTML5 Registration Form with Database Simulation</p>
+</div>
+
+<div class="container">
+
+    <!-- Registration Form -->
+    <div class="card">
+        <h2>Student Registration Form</h2>
+
+        <input type="text" id="name" placeholder="Enter your full name" required>
+        <input type="email" id="email" placeholder="student@example.com" required>
+        <input type="date" id="dob" required>
+
+        <select id="department" required>
+            <option value="">Select Department</option>
+            <option>Computer Science</option>
+            <option>Information Technology</option>
+            <option>Electronics</option>
+            <option>Mechanical</option>
+            <option>Civil</option>
+        </select>
+
+        <input type="text" id="phone" placeholder="+91 9876543210" required>
+
+        <button class="primary" onclick="registerStudent()">Register Student</button>
+        <br><br>
+        <button class="danger" onclick="clearForm()">Clear Form</button>
+    </div>
+
+    <!-- Database Section -->
+    <div class="card">
+        <h2>Student Database</h2>
+
+        <button class="success" onclick="loadStudents()">Load Students (SELECT *)</button>
+        <br><br>
+        <button class="danger" onclick="clearDatabase()">Clear Database</button>
+
+        <p><strong>Simulated SQL Query:</strong><br>
+        SELECT * FROM students</p>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>DOB</th>
+                    <th>Department</th>
+                    <th>Phone</th>
+                </tr>
+            </thead>
+            <tbody id="studentTable">
+                <tr>
+                    <td colspan="6">No student data loaded. Click "Load Students" to retrieve data.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<div class="footer">
+    Student Registration System © 2023 | HTML5 Form with Database Simulation <br>
+    Data is stored locally using browser's localStorage (simulating database storage)
+</div>
+
+<script>
+function registerStudent(){
+    let students = JSON.parse(localStorage.getItem("students")) || [];
+
+    const student = {
+        id: students.length + 1,
+        name: document.getElementById("name").value,
+        email: document.getElementById("email").value,
+        dob: document.getElementById("dob").value,
+        department: document.getElementById("department").value,
+        phone: document.getElementById("phone").value
+    };
+
+    students.push(student);
+    localStorage.setItem("students", JSON.stringify(students));
+
+    alert("Student Registered Successfully!");
+    clearForm();
+}
+
+function loadStudents(){
+    let students = JSON.parse(localStorage.getItem("students")) || [];
+    let table = document.getElementById("studentTable");
+    table.innerHTML = "";
+
+    if(students.length === 0){
+        table.innerHTML = `<tr>
+            <td colspan="6">No student data available.</td>
+        </tr>`;
+        return;
+    }
+
+    students.forEach(student => {
+        table.innerHTML += `
+        <tr>
+            <td>${student.id}</td>
+            <td>${student.name}</td>
+            <td>${student.email}</td>
+            <td>${student.dob}</td>
+            <td>${student.department}</td>
+            <td>${student.phone}</td>
+        </tr>`;
+    });
+}
+
+function clearDatabase(){
+    localStorage.removeItem("students");
+    loadStudents();
+    alert("Database Cleared!");
+}
+
+function clearForm(){
+    document.getElementById("name").value="";
+    document.getElementById("email").value="";
+    document.getElementById("dob").value="";
+    document.getElementById("department").value="";
+    document.getElementById("phone").value="";
+}
+</script>
+
+</body>
+</html>
