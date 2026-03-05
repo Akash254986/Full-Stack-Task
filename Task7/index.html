@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Customer Feedback Form</title>
+
+<style>
+
+body{
+font-family: Arial;
+background:#f4f6f9;
+}
+
+.container{
+width:400px;
+margin:80px auto;
+background:white;
+padding:25px;
+border-radius:10px;
+box-shadow:0px 0px 10px gray;
+}
+
+input,textarea{
+width:100%;
+padding:10px;
+margin:10px 0;
+border:1px solid #ccc;
+border-radius:5px;
+}
+
+button{
+padding:10px;
+width:100%;
+background:green;
+color:white;
+border:none;
+border-radius:5px;
+cursor:pointer;
+}
+
+</style>
+
+<script>
+
+// Name validation (only letters)
+function validateName(event){
+let char = event.key;
+if(!/[a-zA-Z ]/.test(char)){
+event.preventDefault();
+alert("Only alphabets allowed");
+}
+}
+
+// Email validation
+function validateEmail(){
+let email = document.getElementById("email").value;
+let pattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+
+if(!pattern.test(email)){
+alert("Enter valid email");
+return false;
+}
+return true;
+}
+
+// Highlight field on hover
+function highlight(element){
+element.style.backgroundColor="#e8f0fe";
+}
+
+// Remove highlight
+function removeHighlight(element){
+element.style.backgroundColor="white";
+}
+
+// Double click confirmation
+function confirmSubmit(){
+if(validateEmail()){
+alert("Feedback Submitted Successfully!");
+}
+}
+
+</script>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Customer Feedback Form</h2>
+
+<form>
+
+<label>Name</label>
+<input type="text" onkeypress="validateName(event)"
+onmouseover="highlight(this)"
+onmouseout="removeHighlight(this)" required>
+
+<label>Email</label>
+<input type="text" id="email"
+onmouseover="highlight(this)"
+onmouseout="removeHighlight(this)" required>
+
+<label>Feedback</label>
+<textarea rows="4"
+onmouseover="highlight(this)"
+onmouseout="removeHighlight(this)">
+</textarea>
+
+<button type="button" ondblclick="confirmSubmit()">
+Double Click to Submit
+</button>
+
+</form>
+
+</div>
+
+</body>
+</html>
