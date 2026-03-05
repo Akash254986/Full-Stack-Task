@@ -1,0 +1,72 @@
+<!-- <?php include 'db.php'; ?> -->
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Payment Simulation</title>
+<style>
+body{
+font-family: Arial  ;
+background: hsla(62, 87%, 51%, 0.899);
+}
+
+.container{
+width:400px;
+margin:100px auto;
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0px 0px 10px gray;
+}
+
+input,select{
+width:100%;
+padding:10px;
+margin:10px 0;
+}
+
+button{
+padding:10px;
+background:rgb(0, 92, 128);
+color:white;
+border:none;
+width:100%;
+}
+h2 {
+    color: #000;
+    
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<h2>Online Payment</h2>
+
+<form action="process.php" method="POST">
+
+<label>User</label>
+<select name="user_id">
+<option value="1">Akash</option>
+<option value="2">Rahul</option>
+<option value="2">Navadeep</option>
+
+</select>
+
+<label>Merchant</label>
+<select name="merchant_id">
+<option value="101">Amazon Store</option>
+<option value="102">Flipkart Store</option>
+</select>
+
+<label>Amount</label>
+<input type="number" name="amount" required>
+
+<button type="submit">Pay Now</button>
+
+</form>
+</div>
+
+</body>
+</html>
